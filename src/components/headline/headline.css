@@ -1,0 +1,62 @@
+.headline__wrapper {
+  display: flex;
+  height: 100dvh;
+  width: calc(100dvw - 17px);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-image: url('https://i.imgur.com/hFYhyxB.png');
+  gap: 40px;
+}
+
+.headline__title {
+  margin-bottom: 40px;
+  max-width: 800px;
+  text-align: center;
+  color: #f7e407;
+  font-size: 72px;
+}
+
+.headline__text {
+  color: #c9c9c9;
+  font-family: var(--font-family);
+  font-size: 20px;
+  line-height: 166.103%;
+  width: 100%;
+  max-width: 1041px;
+}
+
+.headline__form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.19);
+  backdrop-filter: blur(53.04999923706055px);
+
+  width: 1041px;
+  flex-shrink: 0;
+  border-radius: 26.286px;
+}
+
+.headline__form input {
+  font-family: var(--font-family);
+  width: 90%;
+  padding: 16px 32px;
+  color: #fff;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.headline__form-button {
+  display: flex;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  padding: 12px;
+}
