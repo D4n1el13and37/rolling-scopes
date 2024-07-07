@@ -1,0 +1,55 @@
+.loader__wrapper {
+  z-index: 25;
+  position: fixed;
+  left: calc(100dvw / 2 - 168.5px);
+  top: 0;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  display: flex;
+}
+
+.loader-window {
+  background-color: rgba(118, 126, 136, 0.25);
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+  display: flex;
+}
+
+.loader_image {
+  max-width: 320px;
+  animation: spin 2s infinite ease;
+}
+
+.sword-color {
+  animation: colourChanger 15s infinite ease;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes colourChanger {
+  0% {
+    fill: #d160e6;
+  }
+  25% {
+    fill: #3a5ee1;
+  }
+  50% {
+    fill: #3eca17;
+  }
+  75% {
+    fill: #df1515;
+  }
+  100% {
+    fill: #d160e6;
+  }
+}
