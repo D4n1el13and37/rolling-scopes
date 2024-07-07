@@ -4,7 +4,7 @@ This application is created using [swapi api](https://swapi.dev/api/planets/), a
 
 ## App Description
 
-Here you can find information about each planet, including its climate, population and unique images (i spend approximately 6h for seatch and deplot them, it saves at [imagesGallery.json](https://github.com/D4n1el13and37/rolling-scopes/blob/class-components/src/api/imagesGallery.json) file) . Explore the galaxy and learn more about the places that play a key role in the beloved space saga. 
+Here you can find information about each planet, including its climate, population and unique images (i spend approximately 6h for seatch and deplot them, it saves at [imagesGallery.json](https://github.com/D4n1el13and37/rolling-scopes/blob/class-components/src/api/imagesGallery.json) file) . Explore the galaxy and learn more about the places that play a key role in the beloved space saga.
 
 ## Technological stack
 
