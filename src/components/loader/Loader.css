@@ -11,6 +11,7 @@
 
 .loader-window {
   background-color: rgba(118, 126, 136, 0.25);
+  backdrop-filter: blur(4px);
   border-radius: 50%;
   align-items: center;
   justify-content: center;
@@ -24,15 +25,17 @@
 }
 
 .sword-color {
-  animation: colourChanger 15s infinite ease;
+  animation:
+    colourChanger 15s infinite ease,
+    colourShadows 15s infinite ease;
 }
 
 @keyframes spin {
   0% {
-    transform: rotate(0deg);
+    transform: rotate(360deg);
   }
   100% {
-    transform: rotate(360deg);
+    transform: rotate(0deg);
   }
 }
 
@@ -51,5 +54,23 @@
   }
   100% {
     fill: #d160e6;
+  }
+}
+
+@keyframes colourShadows {
+  0% {
+    filter: drop-shadow(10px -30px 3rem #d160e6);
+  }
+  25% {
+    filter: drop-shadow(10px -30px 3rem #3a5ee1);
+  }
+  50% {
+    filter: drop-shadow(10px -30px 3rem #3eca17);
+  }
+  75% {
+    filter: drop-shadow(10px -30px 3rem #df1515);
+  }
+  100% {
+    filter: drop-shadow(10px -30px 3rem #d160e6);
   }
 }
