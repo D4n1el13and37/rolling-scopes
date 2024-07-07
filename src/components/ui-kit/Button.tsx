@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
 export interface ButtonProps {
-  type: 'button' | 'submit' | 'reset';
+  type?: 'button' | 'submit' | 'reset';
   className: string;
   onClick?: () => void;
   children: React.ReactNode;
