@@ -121,7 +121,10 @@
   0% {
     transform: translateX(0);
   }
-  100% {
+  70% {
     transform: translateX(12px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
