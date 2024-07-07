@@ -1,6 +1,13 @@
 import { Component } from 'react';
-import { CardProps } from '../../interfaces/cardInterface';
 import './card.css';
+
+interface CardProps {
+  imageUrl?: string;
+  name: string;
+  population: string;
+  climate: string;
+  terrain: string;
+}
 
 export default class Card extends Component<CardProps> {
   render() {
