@@ -1,30 +1,19 @@
-# React + TypeScript + Vite
+# Star Wars Planets Collection
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This application is created using [swapi api](https://swapi.dev/api/planets/), and provides a minimal setup to get React working in Vite with some ESLint and Prettier rules.
 
-Currently, two official plugins are available:
+## App Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Here you can find information about each planet, including its climate, population and unique images (i spend approximately 6h for seatch and deplot them, it saves at [imagesGallery.json](https://github.com/D4n1el13and37/rolling-scopes/blob/class-components/src/api/imagesGallery.json) file) . Explore the galaxy and learn more about the places that play a key role in the beloved space saga. 
 
-## Expanding the ESLint configuration
+## Technological stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<p align="center">
+<img width="40" src="https://www.svgrepo.com/show/349540/typescript.svg">
+<img width="40" src="https://www.svgrepo.com/show/354259/react.svg">
+<img width="40" src="https://www.svgrepo.com/show/374004/prettier.svg">
+<img width="40" src="https://www.svgrepo.com/show/353709/eslint.svg">
+<img width="40" src="https://www.svgrepo.com/show/374167/vite.svg">
+</p>
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-};
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Technology stack includes `TypeScript` for type safety, `Vite` for fast development, `React`, `ESLint` and `Prettier` for code quality, creating a powerful and efficient foundation for our application.
