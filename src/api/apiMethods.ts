@@ -31,19 +31,17 @@ interface PlanetsData {
 
 const baseUrl = 'https://swapi.dev/api/planets';
 
-export const getPlanetsByPage = async (page = 1) => {
-  const pageQuerry = `/?page=${page}`;
+const fetchPlanets = async (query: string): Promise<PlanetWithImage[]> => {
   try {
-    const url = baseUrl + pageQuerry;
+    const url = baseUrl + query;
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error('Failed to fetch planets from getAllPlanets function');
+      throw new Error('Failed to fetch planets from fetchPlanets function');
     }
 
-    const data: PlanetsData = await response.json(); // Convert body into JSON
+    const data: PlanetsData = await response.json();
 
     const updatedData: PlanetWithImage[] = data.results.map((planet) => {
-      // Update answer with image src
       const image =
         planetsImages.filter((el) => el?.name === planet.name)[0]?.imageUrl ||
         '';
@@ -57,26 +55,16 @@ export const getPlanetsByPage = async (page = 1) => {
   }
 };
 
-export const getPlanetBySearch = async (name: string) => {
-  const search_querry = `/?search=${name}`;
-  try {
-    const url = baseUrl + search_querry;
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('Failed to fetch planets from getAllPlanets function');
-    }
+export const getPlanetsByPage = async (
+  page = 1
+): Promise<PlanetWithImage[]> => {
+  const pageQuery = `/?page=${page}`;
+  return fetchPlanets(pageQuery);
+};
 
-    const data: PlanetsData = await response.json();
-    const updatedData: PlanetWithImage[] = data.results.map((planet) => {
-      const image =
-        planetsImages.filter((el) => el?.name === planet.name)[0]?.imageUrl ||
-        '';
-      return { ...planet, imageUrl: image };
-    });
-
-    return updatedData;
-  } catch (error) {
-    console.warn('Error fetching planets:', error);
-    throw error;
-  }
+export const getPlanetBySearch = async (
+  name: string
+): Promise<PlanetWithImage[]> => {
+  const searchQuery = `/?search=${name}`;
+  return fetchPlanets(searchQuery);
 };
