@@ -29,36 +29,25 @@ export default class App extends Component {
     this.getPlanets();
   }
 
-  getPlanets = async () => {
+  getPlanets = async (planetName?: string) => {
     this.setState({ isLoading: true });
+    const { defaultQuery } = this.state;
 
     try {
       let response;
-      if (this.state.defaultQuery) {
-        // if we got something in LS seatch by query
-        response = await getPlanetBySearch(this.state.defaultQuery!);
+      if (planetName) {
+        response = await getPlanetBySearch(defaultQuery!);
       } else {
-        response = await getPlanetsByPage();
+        // if we got something in LS seartch by query
+        if (defaultQuery) {
+          response = await getPlanetBySearch(defaultQuery!);
+        } else {
+          response = await getPlanetsByPage();
+        }
       }
       this.setState({ planets: response, isLoading: false });
     } catch (error) {
       console.error('Error fetching planets:', error);
-      this.setState({ isLoading: false });
-    }
-  };
-
-  searchPlanets = async (planetName?: string) => {
-    this.setState({ isLoading: true });
-    try {
-      let response;
-      if (planetName) {
-        response = await getPlanetBySearch(planetName);
-      } else {
-        response = await getPlanetsByPage();
-      }
-      this.setState({ planets: response, isLoading: false });
-    } catch (error) {
-      console.error('Error fetching planets by searching:', error);
       this.setState({ isLoading: false });
     }
   };
@@ -80,7 +69,7 @@ export default class App extends Component {
             Throw Error
           </button>
         </div>
-        <Headline onSearch={this.searchPlanets} />
+        <Headline onSearch={this.getPlanets} />
         <Content planets={this.state.planets} />
       </div>
     );
