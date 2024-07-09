@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 
 export interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
@@ -7,16 +7,10 @@ export interface ButtonProps {
   children: React.ReactNode;
 }
 
-export class Button extends Component<ButtonProps> {
-  render() {
-    return (
-      <button
-        className={this.props.className}
-        type={this.props.type}
-        onClick={this.props.onClick}
-      >
-        {this.props.children}
-      </button>
-    );
-  }
-}
+const Button: React.FC<ButtonProps> = ({ ...props }) => (
+  <button className={props.className} type={props.type} onClick={props.onClick}>
+    {props.children}
+  </button>
+);
+
+export default Button;

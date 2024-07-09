@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { Button } from '../ui-kit/Button';
+import Button from '../ui-kit/Button';
 import './Headline.css';
 
 interface HeadlineProps {
