@@ -7,7 +7,9 @@ interface HeadlineProps {
 }
 
 const Headline: React.FC<HeadlineProps> = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(
+    localStorage.getItem('query') || ''
+  );
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);

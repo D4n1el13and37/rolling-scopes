@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { /* Component, */ useCallback, useEffect, useState } from 'react';
 import Headline from './components/headline/Headline';
 import Content from './components/content/Content';
 import Loader from './components/loader/Loader';
@@ -10,45 +10,49 @@ import {
 
 import './app.css';
 
-interface AppState {
-  defaultQuery: string | null;
-  isLoading: boolean;
-  planets: PlanetWithImage[];
-  throwError: boolean;
-}
+// interface AppState {
+//   defaultQuery: string | null;
+//   isLoading: boolean;
+//   planets: PlanetWithImage[];
+//   throwError: boolean;
+// }
 
-export default class App extends Component {
-  state: AppState = {
-    defaultQuery: localStorage.getItem('query'),
+const App: React.FC = () => {
+  const [appState, setAppState] = useState({
+    defaultQuery: localStorage.getItem('query'), // should i change it into context?
     isLoading: false,
-    planets: [],
+    planets: [] as PlanetWithImage[],
     throwError: false,
-  };
+  });
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [throwError, setThrowError] = useState(false);
 
-  componentDidMount() {
-    this.getPlanets();
-  }
-
-  getPlanets = async () => {
-    this.setState({ isLoading: true });
+  const getPlanets = useCallback(async () => {
+    setAppState({
+      ...appState,
+      isLoading: true,
+    });
 
     try {
-      let response;
-      if (this.state.defaultQuery) {
+      let response: PlanetWithImage[];
+      if (appState.defaultQuery) {
         // if we got something in LS seatch by query
-        response = await getPlanetBySearch(this.state.defaultQuery!);
+        response = await getPlanetBySearch(appState.defaultQuery!);
       } else {
         response = await getPlanetsByPage();
       }
-      this.setState({ planets: response, isLoading: false });
+      setAppState({ ...appState, planets: response, isLoading: false });
     } catch (error) {
       console.error('Error fetching planets:', error);
-      this.setState({ isLoading: false });
+      setAppState({ ...appState, isLoading: false });
     }
-  };
+  }, [appState]);
 
-  searchPlanets = async (planetName?: string) => {
-    this.setState({ isLoading: true });
+  const searchPlanets = async (planetName?: string) => {
+    setAppState({
+      ...appState,
+      isLoading: true,
+    });
     try {
       let response;
       if (planetName) {
@@ -56,33 +60,39 @@ export default class App extends Component {
       } else {
         response = await getPlanetsByPage();
       }
-      this.setState({ planets: response, isLoading: false });
+      setAppState({ ...appState, planets: response, isLoading: false });
     } catch (error) {
       console.error('Error fetching planets by searching:', error);
-      this.setState({ isLoading: false });
+      setAppState({ ...appState, isLoading: false });
     }
   };
-
-  handleThrowError = () => {
-    this.setState({ throwError: true });
+  const handleThrowError = () => {
+    console.log('is it work?');
+    setAppState({ ...appState, throwError: true });
   };
 
-  render() {
-    if (this.state.throwError) {
-      throw new Error('Call an error by button');
+  useEffect(() => {
+    if (!appState.planets.length) {
+      getPlanets();
     }
+  }, [appState.planets, getPlanets]);
 
-    return (
-      <div className="app__wrapper">
-        {this.state.isLoading && <Loader />}
-        <div className="cause-error">
-          <button className="button-error" onClick={this.handleThrowError}>
-            Throw Error
-          </button>
-        </div>
-        <Headline onSearch={this.searchPlanets} />
-        <Content planets={this.state.planets} />
+  return (
+    //   if (this.state.throwError) {
+    //   throw new Error('Call an error by button');
+    // }
+
+    <div className="app__wrapper">
+      {appState.isLoading && <Loader />}
+      <div className="cause-error">
+        <button className="button-error" onClick={handleThrowError}>
+          Throw Error
+        </button>
       </div>
-    );
-  }
-}
+      <Headline onSearch={searchPlanets} />
+      <Content planets={appState.planets} />
+    </div>
+  );
+};
+
+export default App;
