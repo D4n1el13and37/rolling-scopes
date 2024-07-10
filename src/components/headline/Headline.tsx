@@ -3,7 +3,7 @@ import { Button } from '../ui-kit/Button';
 import './headline.css';
 
 interface HeadlineProps {
-  onSearch: (query: string) => void;
+  onSearch: () => void;
 }
 
 interface HeadlineState {
@@ -23,7 +23,7 @@ export default class Headline extends Component<HeadlineProps, HeadlineState> {
     event.preventDefault();
     const query = this.state.searchQuery.trim(); // to reduce spaces use trim
     localStorage.setItem('query', query);
-    this.props.onSearch(query);
+    this.props.onSearch();
   };
 
   render() {

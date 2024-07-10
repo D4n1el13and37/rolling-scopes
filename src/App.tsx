@@ -29,21 +29,18 @@ export default class App extends Component {
     this.getPlanets();
   }
 
-  getPlanets = async (planetName?: string) => {
+  getPlanets = async () => {
     this.setState({ isLoading: true });
-    const { defaultQuery } = this.state;
+
+    // Update defaultQuery from localStorage
+    const defaultQuery = localStorage.getItem('query');
 
     try {
       let response;
-      if (planetName) {
+      if (defaultQuery) {
         response = await getPlanetBySearch(defaultQuery!);
       } else {
-        // if we got something in LS seartch by query
-        if (defaultQuery) {
-          response = await getPlanetBySearch(defaultQuery!);
-        } else {
-          response = await getPlanetsByPage();
-        }
+        response = await getPlanetsByPage();
       }
       this.setState({ planets: response, isLoading: false });
     } catch (error) {
