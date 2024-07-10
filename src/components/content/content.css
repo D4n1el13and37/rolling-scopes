@@ -1,0 +1,13 @@
+.content__wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.planets__list {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+}
