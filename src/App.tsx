@@ -1,4 +1,4 @@
-import { /* Component, */ useCallback, useEffect, useState } from 'react';
+import { /* Component, */ /* useCallback, useEffect, */ useState } from 'react';
 import Headline from './components/headline/Headline';
 import Content from './components/content/Content';
 import Loader from './components/loader/Loader';
@@ -27,55 +27,78 @@ const App: React.FC = () => {
   // const [isLoading, setIsLoading] = useState(false);
   // const [throwError, setThrowError] = useState(false);
 
-  const getPlanets = useCallback(async () => {
-    setAppState({
-      ...appState,
-      isLoading: true,
-    });
+  const getPlanets = async (planetName?: string) => {
+    setAppState({ ...appState, isLoading: true });
+    const { defaultQuery } = appState;
 
     try {
-      let response: PlanetWithImage[];
-      if (appState.defaultQuery) {
-        // if we got something in LS seatch by query
-        response = await getPlanetBySearch(appState.defaultQuery!);
+      let response;
+      if (planetName) {
+        response = await getPlanetBySearch(defaultQuery!);
       } else {
-        response = await getPlanetsByPage();
+        // if we got something in LS seartch by query
+        if (defaultQuery) {
+          response = await getPlanetBySearch(defaultQuery!);
+        } else {
+          response = await getPlanetsByPage();
+        }
       }
       setAppState({ ...appState, planets: response, isLoading: false });
     } catch (error) {
       console.error('Error fetching planets:', error);
       setAppState({ ...appState, isLoading: false });
     }
-  }, [appState]);
-
-  const searchPlanets = async (planetName?: string) => {
-    setAppState({
-      ...appState,
-      isLoading: true,
-    });
-    try {
-      let response;
-      if (planetName) {
-        response = await getPlanetBySearch(planetName);
-      } else {
-        response = await getPlanetsByPage();
-      }
-      setAppState({ ...appState, planets: response, isLoading: false });
-    } catch (error) {
-      console.error('Error fetching planets by searching:', error);
-      setAppState({ ...appState, isLoading: false });
-    }
   };
+
+  // const getPlanets = useCallback(async () => {
+  //   setAppState({
+  //     ...appState,
+  //     isLoading: true,
+  //   });
+
+  //   try {
+  //     let response: PlanetWithImage[];
+  //     if (appState.defaultQuery) {
+  //       // if we got something in LS seatch by query
+  //       response = await getPlanetBySearch(appState.defaultQuery!);
+  //     } else {
+  //       response = await getPlanetsByPage();
+  //     }
+  //     setAppState({ ...appState, planets: response, isLoading: false });
+  //   } catch (error) {
+  //     console.error('Error fetching planets:', error);
+  //     setAppState({ ...appState, isLoading: false });
+  //   }
+  // }, [appState]);
+
+  // const searchPlanets = async (planetName?: string) => {
+  //   setAppState({
+  //     ...appState,
+  //     isLoading: true,
+  //   });
+  //   try {
+  //     let response;
+  //     if (planetName) {
+  //       response = await getPlanetBySearch(planetName);
+  //     } else {
+  //       response = await getPlanetsByPage();
+  //     }
+  //     setAppState({ ...appState, planets: response, isLoading: false });
+  //   } catch (error) {
+  //     console.error('Error fetching planets by searching:', error);
+  //     setAppState({ ...appState, isLoading: false });
+  //   }
+  // };
   const handleThrowError = () => {
     console.log('is it work?');
     setAppState({ ...appState, throwError: true });
   };
 
-  useEffect(() => {
-    if (!appState.planets.length) {
-      getPlanets();
-    }
-  }, [appState.planets, getPlanets]);
+  // useEffect(() => {
+  //   if (!appState.planets.length) {
+  //     getPlanets();
+  //   }
+  // }, [appState.planets, getPlanets]);
 
   return (
     //   if (this.state.throwError) {
@@ -89,7 +112,7 @@ const App: React.FC = () => {
           Throw Error
         </button>
       </div>
-      <Headline onSearch={searchPlanets} />
+      <Headline onSearch={getPlanets} />
       <Content planets={appState.planets} />
     </div>
   );
