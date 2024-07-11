@@ -3,13 +3,12 @@ import Button from '../ui-kit/Button';
 import './Headline.css';
 
 interface HeadlineProps {
-  onSearch: (query: string) => void;
+  defaultQuery: string;
+  setQuery: (query: string) => void;
 }
 
-const Headline: React.FC<HeadlineProps> = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState(
-    localStorage.getItem('query') || ''
-  );
+const Headline: React.FC<HeadlineProps> = ({ defaultQuery, setQuery }) => {
+  const [searchQuery, setSearchQuery] = useState(defaultQuery || '');
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -18,8 +17,7 @@ const Headline: React.FC<HeadlineProps> = ({ onSearch }) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const query = searchQuery.trim(); // to reduce spaces use trim
-    localStorage.setItem('query', query);
-    onSearch(query);
+    setQuery(query);
   };
 
   return (
