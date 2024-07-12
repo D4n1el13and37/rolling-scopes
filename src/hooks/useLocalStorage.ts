@@ -6,9 +6,7 @@ const useLocalStorage = (key: string, initialValue: string) => {
   const [query, setQuery] = useState(savedQuery || initialValue);
 
   useEffect(() => {
-    return () => {
-      localStorage.setItem(key, query);
-    };
+    localStorage.setItem(key, query);
   }, [key, query]);
 
   return [query, setQuery] as const;
