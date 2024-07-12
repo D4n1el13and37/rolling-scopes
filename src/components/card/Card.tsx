@@ -1,15 +1,8 @@
 import React from 'react';
 import './Card.css';
+import { PlanetWithImage } from '../../api/apiMethods';
 
-interface CardProps {
-  imageUrl?: string;
-  name: string;
-  population: string;
-  climate: string;
-  terrain: string;
-}
-
-const Card: React.FC<CardProps> = ({ ...props }) => (
+const Card: React.FC<PlanetWithImage> = ({ ...props }) => (
   <article className="card">
     <div className="card__image-wrapper">
       <img src={props.imageUrl || ''} alt={`${props.name} planet image`} />
