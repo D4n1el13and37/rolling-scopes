@@ -11,3 +11,8 @@
   justify-content: center;
   max-width: 1200px;
 }
+
+.plenets__notfound {
+  font-size: 24px;
+  color: #fff;
+}

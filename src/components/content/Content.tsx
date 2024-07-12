@@ -23,6 +23,11 @@ const Content: React.FC<ContentProps> = ({ planets }) => {
             />
           );
         })}
+        {!planets.length && (
+          <div className="plenets__notfound">
+            It seems that such a planet is not on our list
+          </div>
+        )}
       </div>
     </div>
   );
