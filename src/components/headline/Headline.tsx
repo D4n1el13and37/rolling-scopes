@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import Button from '../ui-kit/Button';
+import { useNavigate } from 'react-router-dom';
 import './Headline.css';
 
 interface HeadlineProps {
@@ -9,6 +10,7 @@ interface HeadlineProps {
 
 const Headline: React.FC<HeadlineProps> = ({ defaultQuery, setQuery }) => {
   const [searchQuery, setSearchQuery] = useState(defaultQuery || '');
+  const navigate = useNavigate();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -18,6 +20,7 @@ const Headline: React.FC<HeadlineProps> = ({ defaultQuery, setQuery }) => {
     event.preventDefault();
     const query = searchQuery.trim(); // to reduce spaces use trim
     setQuery(query);
+    navigate(`/?search=${query}&page=1`); // make correct url after search
   };
 
   return (
