@@ -1,31 +1,28 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { getCurrentPlanet, PlanetWithImage } from '../../api/apiMethods';
+import Button from '../../components/ui-kit/Button';
 
 import './DetailedPlanet.css';
-import Button from '../../components/ui-kit/Button';
-import Loader from '../../components/loader/Loader';
+import { LoadingState } from '../Home/Home';
 
-const DetailedPlanet = () => {
+const DetailedPlanet: React.FC<LoadingState> = ({ setIsLoading }) => {
   const { id } = useParams<{ id: string }>();
   const [planetData, setPlanetData] = useState<PlanetWithImage>();
-  // need to rework
-  const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
 
   const getPlanet = useCallback(async () => {
     setIsLoading(true);
     try {
       const val = id || '';
       const res = await getCurrentPlanet(val);
-
       setPlanetData(res);
-      // need to rework
-      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching planets:', error);
+    } finally {
       setIsLoading(false);
     }
-  }, [id]);
+  }, [id, setIsLoading]);
 
   useEffect(() => {
     getPlanet();
@@ -33,8 +30,6 @@ const DetailedPlanet = () => {
 
   return (
     <div className="detailed__wrapper">
-      {/** must be at top level, at parent component */}
-      {isLoading && <Loader />}
       <div className="detailed__left">
         <img src={planetData?.imageUrl} alt="" />
       </div>
@@ -50,8 +45,7 @@ const DetailedPlanet = () => {
         <p>Surface Water: {planetData?.surface_water}%</p>
       </div>
 
-      {/** should i refactor it?*/}
-      <Link to={'/'}>
+      <Link to={`/${location.search}`}>
         <Button className="detailed_close">close</Button>
       </Link>
     </div>
