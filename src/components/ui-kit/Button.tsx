@@ -1,14 +1,14 @@
 import React from 'react';
 
 export interface ButtonProps {
-  type?: 'button' | 'submit' | 'reset';
   className: string;
-  onClick?: () => void;
   children: React.ReactNode;
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({ ...props }) => (
-  <button className={props.className} type={props.type} onClick={props.onClick}>
+  <button type={props.type} onClick={props.onClick} {...props}>
     {props.children}
   </button>
 );
