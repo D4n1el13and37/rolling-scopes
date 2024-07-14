@@ -2,21 +2,41 @@ import React from 'react';
 import { PlanetWithImage } from '../../api/apiMethods';
 import Card from '../card/Card';
 import './Content.css';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 interface ContentProps {
   planets: PlanetWithImage[];
 }
 
 const Content: React.FC<ContentProps> = ({ planets }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('.card') || target.closest('.detailed__wrapper')) {
+      return;
+    }
+
+    if (
+      location.pathname.includes('/card/') &&
+      !target.closest('.detailed__wrapper')
+    ) {
+      navigate(-1);
+    }
+  };
+
   return (
-    <div className="content__wrapper">
+    <div className="content__wrapper" onClick={handleClick}>
       <div className="planets__list">
         {planets.map((planet: PlanetWithImage, index) => {
           const id = planet.url.split('/').slice(-2, -1)[0];
 
           return (
-            <Link key={planet.name + index} to={`card/${id}`}>
+            <Link
+              key={planet.name + index}
+              to={`/card/${id}/${location.search}`}
+            >
               <Card key={planet.name + index} {...planet} />
             </Link>
           );
