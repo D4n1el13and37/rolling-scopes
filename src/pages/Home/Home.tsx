@@ -1,40 +1,43 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import {
-  getPlanetBySearch,
-  getPlanetsByPage,
-  PlanetWithImage,
-} from '../../api/apiMethods';
-import Loader from '../../components/loader/Loader';
+import { fetchPlanets, PlanetWithImage } from '../../api/apiMethods';
 import Button from '../../components/ui-kit/Button';
 import Headline from '../../components/headline/Headline';
 import Content from '../../components/content/Content';
+import { useSearchParams } from 'react-router-dom';
+import Pagination, {
+  PaginationProps,
+} from '../../components/pagination/Pagination';
 
 import './Home.css';
 
-const Home = () => {
+export interface LoadingState {
+  setIsLoading: (state: boolean) => void;
+}
+
+const Home: React.FC<LoadingState> = ({ setIsLoading }) => {
   const [planets, setPlanets] = useState<PlanetWithImage[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [paginationData, setPaginationData] = useState<PaginationProps>();
   const [throwError, setThrowError] = useState(false);
   const [query, setQuery] = useLocalStorage('query', '');
+
+  const [searchParams] = useSearchParams();
 
   const getPlanets = useCallback(async () => {
     setIsLoading(true);
 
     try {
-      let response;
-      if (query) {
-        response = await getPlanetBySearch(query);
-      } else {
-        response = await getPlanetsByPage();
-      }
-      setPlanets(response);
-      setIsLoading(false);
+      const searchQuery = searchParams.get('search') || query;
+      const page = Number(searchParams.get('page')) || 1;
+      const response = await fetchPlanets(searchQuery, page);
+      setPlanets(response.results);
+      setPaginationData(response);
     } catch (error) {
       console.error('Error fetching planets:', error);
+    } finally {
       setIsLoading(false);
     }
-  }, [query]);
+  }, [query, searchParams, setIsLoading]);
 
   const handleThrowError = () => {
     setThrowError(true);
@@ -42,7 +45,7 @@ const Home = () => {
 
   useEffect(() => {
     getPlanets();
-  }, [getPlanets, query]);
+  }, [getPlanets, searchParams]);
 
   if (throwError) {
     throw new Error('Call an error by button');
@@ -50,7 +53,6 @@ const Home = () => {
 
   return (
     <div className="app__wrapper">
-      {isLoading && <Loader />}
       <div className="cause-error">
         <Button className="button-error" onClick={handleThrowError}>
           Throw Error
@@ -58,6 +60,12 @@ const Home = () => {
       </div>
       <Headline defaultQuery={query} setQuery={setQuery} />
       <Content planets={planets} />
+      {(paginationData?.next || paginationData?.previous) && (
+        <Pagination
+          next={paginationData?.next}
+          previous={paginationData?.previous}
+        />
+      )}
     </div>
   );
 };
