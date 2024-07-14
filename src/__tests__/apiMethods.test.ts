@@ -1,5 +1,5 @@
 import { vi, describe, it, expect } from 'vitest';
-import { fetchPlanets, getCurrentPlanet } from '../apiMethods';
+import { fetchPlanets, getCurrentPlanet } from '../api/apiMethods';
 import { mockPlanetsData, mockPlanetData } from './mockData';
 
 globalThis.fetch = vi.fn();

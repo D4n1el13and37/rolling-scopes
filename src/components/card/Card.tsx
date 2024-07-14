@@ -5,12 +5,13 @@ import { PlanetWithImage } from '../../api/apiMethods';
 const Card: React.FC<PlanetWithImage> = ({ ...props }) => (
   <article className="card">
     <div className="card__image-wrapper">
-      <img src={props.imageUrl || ''} alt={`${props.name} planet image`} />
+      <img
+        data-testid="card-image"
+        src={props.imageUrl || ''}
+        alt={`${props.name} planet image`}
+      />
     </div>
-    <div
-      className="card__text-content"
-      style={{ display: 'flex', flexDirection: 'column' }}
-    >
+    <div className="card__text-content">
       <h3>{props.name}</h3>
       <span>Population: {props.population}</span>
       <span>Climate: {props.climate}</span>

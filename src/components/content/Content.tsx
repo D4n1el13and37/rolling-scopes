@@ -27,8 +27,8 @@ const Content: React.FC<ContentProps> = ({ planets }) => {
   };
 
   return (
-    <div className="content__wrapper" onClick={handleClick}>
-      <div className="planets__list">
+    <main className="content__wrapper" onClick={handleClick}>
+      <div data-testid="planets-list" className="planets__list">
         {planets.map((planet: PlanetWithImage, index) => {
           const id = planet.url.split('/').slice(-2, -1)[0];
 
@@ -49,7 +49,7 @@ const Content: React.FC<ContentProps> = ({ planets }) => {
         )}
       </div>
       <Outlet />
-    </div>
+    </main>
   );
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import './Loader.css';
 
 const Loader: React.FC = () => (
-  <div className="loader__wrapper">
+  <div className="loader__wrapper" data-testid="loader">
     <div className="loader-window">
       <svg
         className="loader_image"

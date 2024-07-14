@@ -35,14 +35,22 @@ const Headline: React.FC<HeadlineProps> = ({ defaultQuery, setQuery }) => {
         climate, population and unique images. Explore the galaxy and learn more
         about the places that play a key role in the beloved space saga.
       </p>
-      <form className="headline__form" onSubmit={handleSubmit}>
+      <form
+        data-testid="search-form"
+        className="headline__form"
+        onSubmit={handleSubmit}
+      >
         <input
           type="text"
           value={searchQuery}
           onChange={handleInputChange}
           placeholder="Enter planet name"
         />
-        <Button className="headline__form-button" type="submit">
+        <Button
+          data-testid="submit-form"
+          className="headline__form-button"
+          type="submit"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="29"

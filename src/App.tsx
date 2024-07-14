@@ -29,10 +29,10 @@ const App = () => {
     ]);
 
   return (
-    <div>
+    <>
       {isLoading && <Loader />}
       <RouterProvider router={router()} />
-    </div>
+    </>
   );
 };
 

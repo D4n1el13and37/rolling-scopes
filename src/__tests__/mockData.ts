@@ -74,3 +74,10 @@ export const mockPlanetData = {
   terrain: 'desert',
   url: 'https://swapi.dev/api/planets/1/',
 };
+
+export const paginationData = {
+  count: 1,
+  next: 'https://swapi.dev/api/planets/?page=3',
+  previous: 'https://swapi.dev/api/planets/?page=1',
+  results: [],
+};
