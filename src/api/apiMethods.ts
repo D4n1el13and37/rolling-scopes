@@ -55,12 +55,12 @@ export const fetchPlanets = async (
     const data: PlanetsData = await response.json();
 
     const updatedResult: PlanetWithImage[] = data.results.map((planet) => {
-      const image =
-        planetsImages.filter((el) => el?.name === planet.name)[0]?.imageUrl ||
-        '';
+      const image = planetsImages.filter((el) => el?.name === planet.name)[0]
+        ?.imageUrl;
       return { ...planet, imageUrl: image };
     });
     const updatedData = { ...data, results: updatedResult };
+    console.log(updatedData);
     return updatedData;
   } catch (error) {
     console.warn('Error fetching planets:', error);
