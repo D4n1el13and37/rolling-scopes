@@ -1,6 +1,6 @@
 import React from 'react';
 import './Card.css';
-import { PlanetWithImage } from '../../api/apiMethods';
+import { PlanetWithImage } from '../../api/types';
 
 const Card: React.FC<PlanetWithImage> = ({ ...props }) => (
   <article className="card">
