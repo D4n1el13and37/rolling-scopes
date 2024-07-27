@@ -2,12 +2,8 @@ import Home from './pages/Home/Home';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFound from './pages/NotFound/NotFound';
 import DetailedPlanet from './pages/DetailedPlanet/DetailedPlanet.tsx';
-import { useState } from 'react';
-import Loader from './components/loader/Loader.tsx';
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const router = () =>
     createBrowserRouter([
       {
@@ -16,11 +12,11 @@ const App = () => {
         children: [
           {
             path: '',
-            element: <Home setIsLoading={setIsLoading} />,
+            element: <Home />,
             children: [
               {
                 path: 'card/:id',
-                element: <DetailedPlanet setIsLoading={setIsLoading} />,
+                element: <DetailedPlanet />,
               },
             ],
           },
@@ -28,12 +24,7 @@ const App = () => {
       },
     ]);
 
-  return (
-    <>
-      {isLoading && <Loader />}
-      <RouterProvider router={router()} />
-    </>
-  );
+  return <RouterProvider router={router()} />;
 };
 
 export default App;
