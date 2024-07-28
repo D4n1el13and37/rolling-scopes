@@ -1,3 +1,7 @@
+// import { configureStore } from '@reduxjs/toolkit';
+// import planetsApi from '../api/apiMethods';
+// import planetSlice from '../store/slices/planetsSliice';
+
 export const mockPlanetsData = {
   count: 1,
   next: null,
